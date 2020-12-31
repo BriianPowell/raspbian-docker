@@ -1,74 +1,50 @@
-version: '3'
+version: '3.2'
 services:
   home-assistant:
-    container_name: home-assistant
     image: homeassistant/home-assistant:stable
-    volumes: 
-      - /home/GitHub/hass-config:/config
-      - /etc/localtime:/etc/localtime:ro
     network_mode: host
     extra_hosts:
       - 'host.docker.internal:192.168.1.74'
       - 'hass-db:192.168.1.74'
-
-
+    ports:
+      - '8123:8123'
+    container_name: home-assistant
+    volumes: 
+      - /home/GitHub/hass-config:/config
+      - /etc/localtime:/etc/localtime:ro
+    depends_on:
+      - hass-db
+      - host-hostnames
+      - mqtt-broker
     hass-db:
       image: postgres:11
       networks:
         - hass-net
       extra_hosts:
-        - 'host.docker.internal:10.0.0.111'
+      - 'host.docker.internal:192.168.1.74'
       ports:
         - '5432:5432'
       volumes:
         - /usr/local/lib/hass-postgres-data:/var/lib/postgresql/data
       environment:
         POSTGRES_DB: hass
-    env_file: 'hass-postgres.env'
-
-  #   image: homeassistant/home-assistant
-  #   #networks:
-  #   #  - nginx-net
-  #   #  - hass-net
-  #   network_mode: host
-  #   extra_hosts:
-  #     - 'host.docker.internal:10.0.0.111'
-  #     - 'hass-db:10.0.0.111'
-  #   ports:
-  #     - '56700:56700'
-  #     - '8123:8123'
-  #   volumes:
-  #     - /home/dudeofawesome/Github/hass-config:/config
-  #     - /etc/localtime:/etc/localtime:ro
-  #     - /mnt/storage:/mnt/storage:ro
-  #   depends_on:
-  #     - hass-db
-  #     - host-hostnames
-  #     - mqtt-broker
+      env_file: 'hass-postgres.env'
+    mqtt-broker:
+      image: eclipse-mosquitto
+      networks:
+        - hass-net
+      ports:
+        - '1883:1883'
+        - '9001:9001'
+      volumes:
+        - /usr/local/etc/docker-mosquitto:/mosquitto/config
+        - /usr/local/lib/docker-mosquitto:/mosquitto/data
+    host-hostnames:
+      image: dvdarias/docker-hoster
+      volumes:
+        - /var/run/docker.sock:/tmp/docker.sock
+        - /etc/hosts:/tmp/hosts
 
 
 
-  # hass-appdaemon:
-  #   image: acockburn/appdaemon
-  #   networks:
-  #     - hass-net
-  #   extra_hosts:
-  #     - 'host.docker.internal:10.0.0.111'
-  #   ports:
-  #     - '5050:5050'
-  #   volumes:
-  #     - /home/dudeofawesome/Github/hass-config/appdaemon:/conf
-  #   environment:
-  #     DASH_URL: 'http://10.0.0.111:5050'
-  #   env_file: 'hass-appdaemon.env'
 
-  # mqtt-broker:
-  #   image: eclipse-mosquitto
-  #   networks:
-  #     - hass-net
-  #   ports:
-  #     - '1883:1883'
-  #     - '9001:9001'
-  #   volumes:
-  #     - /usr/local/etc/docker-mosquitto:/mosquitto/config
-  #     - /usr/local/lib/docker-mosquitto:/mosquitto/data
