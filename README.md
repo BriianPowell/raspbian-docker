@@ -11,7 +11,7 @@
 1. Install Docker
 
 ```bash
-sudo apt install docker
+sudo apt install do   ker
 ```
 
 2. Install Docker Compose
@@ -25,4 +25,10 @@ sudo apt install docker-compose
 
 ```bash
 docker-compose up -d
+```
+
+### Usefule Scripts
+
+```bash
+scp hass-postgres.env user@ip:/home/GitHub/raspbian-docker
 ```
