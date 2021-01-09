@@ -47,5 +47,5 @@ services:
       - /etc/hosts:/tmp/hosts
 
 
-
-
+networks:
+  hass-net:
