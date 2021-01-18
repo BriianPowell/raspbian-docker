@@ -1,13 +1,14 @@
-version: '3.2'
+version: '1.0'
 services:
   home-assistant:
     image: homeassistant/home-assistant:stable
     network_mode: host
     restart: on-failure
     extra_hosts:
-      - 'host.docker.internal:192.168.1.74'
-      - 'hass-db:192.168.1.74'
+      - 'host.docker.internal:10.0.0.15'
+      - 'hass-db:10.0.0.15'
     ports:
+      - '56700:56700'
       - '8123:8123'
     container_name: home-assistant
     volumes: 
@@ -22,7 +23,7 @@ services:
     networks:
       - hass-net
     extra_hosts:
-    - 'host.docker.internal:192.168.1.74'
+    - 'host.docker.internal:10.0.0.15'
     ports:
       - '5432:5432'
     volumes:
@@ -45,7 +46,6 @@ services:
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock
       - /etc/hosts:/tmp/hosts
-
 
 networks:
   hass-net:
