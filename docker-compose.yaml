@@ -1,9 +1,9 @@
-version: '3.3'
+version: '3'
 services:
   home-assistant:
     image: homeassistant/home-assistant
     network_mode: host
-    restart: on-failure
+    restart: always
     extra_hosts:
       - 'host.docker.internal:10.0.0.15'
       - 'hass-db:10.0.0.15'
@@ -11,7 +11,7 @@ services:
       - '56700:56700'
       - '8123:8123'
     volumes: 
-      - ~/GitHub/hass-config:/config
+      - /home/admin/GitHub/hass-config:/config
       - /etc/localtime:/etc/localtime:ro
     depends_on:
       - hass-db
