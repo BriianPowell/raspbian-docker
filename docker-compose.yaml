@@ -1,7 +1,7 @@
 version: '3.3'
 services:
   home-assistant:
-    image: homeassistant/home-assistant:stable
+    image: homeassistant/home-assistant
     network_mode: host
     restart: on-failure
     extra_hosts:
@@ -11,7 +11,7 @@ services:
       - '56700:56700'
       - '8123:8123'
     volumes: 
-      - /home/GitHub/hass-config:/config
+      - /home/admin/GitHub/hass-config:/config
       - /etc/localtime:/etc/localtime:ro
     depends_on:
       - hass-db
