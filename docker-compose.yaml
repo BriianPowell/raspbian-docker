@@ -10,7 +10,6 @@ services:
     ports:
       - '56700:56700'
       - '8123:8123'
-    container_name: home-assistant
     volumes: 
       - /home/GitHub/hass-config:/config
       - /etc/localtime:/etc/localtime:ro
