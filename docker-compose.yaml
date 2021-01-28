@@ -11,7 +11,7 @@ services:
       - '56700:56700'
       - '8123:8123'
     volumes: 
-      - /home/admin/GitHub/hass-config:/config
+      - ~/GitHub/hass-config:/config
       - /etc/localtime:/etc/localtime:ro
     depends_on:
       - hass-db
