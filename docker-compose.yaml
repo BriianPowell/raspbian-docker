@@ -15,8 +15,8 @@ services:
       - /etc/localtime:/etc/localtime:ro
     depends_on:
       - hass-db
-      - host-hostnames
-      - mqtt-broker
+      # - host-hostnames
+      # - mqtt-broker
   hass-db:
     image: postgres:13
     extra_hosts:
@@ -28,16 +28,16 @@ services:
     environment:
       POSTGRES_DB: hass
     env_file: 'hass-postgres.env'
-  mqtt-broker:
-    image: eclipse-mosquitto
-    ports:
-      - '1883:1883'
-      - '9001:9001'
-    volumes:
-      - /usr/local/etc/docker-mosquitto:/mosquitto/config
-      - /usr/local/lib/docker-mosquitto:/mosquitto/data
-  host-hostnames:
-    image: dvdarias/docker-hoster
-    volumes:
-      - /var/run/docker.sock:/tmp/docker.sock
-      - /etc/hosts:/tmp/hosts
+  # mqtt-broker:
+  #   image: eclipse-mosquitto
+  #   ports:
+  #     - '1883:1883'
+  #     - '9001:9001'
+  #   volumes:
+  #     - /usr/local/etc/docker-mosquitto:/mosquitto/config
+  #     - /usr/local/lib/docker-mosquitto:/mosquitto/data
+  # host-hostnames:
+  #   image: dvdarias/docker-hoster
+  #   volumes:
+  #     - /var/run/docker.sock:/tmp/docker.sock
+  #     - /etc/hosts:/tmp/hosts
