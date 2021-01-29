@@ -1,24 +1,27 @@
 version: '3'
 services:
   home-assistant:
-    image: homeassistant/home-assistant
-    network_mode: host
+    image: homeassistant/home-assistant:latest
+    depends_on:
+      - hass-db
+      - host-hostnames
+      - mqtt-broker
+    links:
+      - hass-db
     restart: always
-    extra_hosts:
-      - 'host.docker.internal:10.0.0.15'
-      - 'hass-db:10.0.0.15'
-    ports:
-      - '56700:56700'
-      - '8123:8123'
+    # extra_hosts:
+    #   - 'host.docker.internal:10.0.0.15'
+    #   - 'hass-db:10.0.0.15'
     volumes: 
       - /home/admin/GitHub/hass-config:/config
       - /etc/localtime:/etc/localtime:ro
-    depends_on:
-      - hass-db
-      # - host-hostnames
-      # - mqtt-broker
+    ports:
+      # - '56700:56700'
+      - '8123:8123'
+      
   hass-db:
     image: postgres:13
+    restart: always
     extra_hosts:
     - 'host.docker.internal:10.0.0.15'
     ports:
@@ -26,7 +29,7 @@ services:
     volumes:
       - /usr/local/lib/hass-postgres-data:/var/lib/postgresql/data
     environment:
-      POSTGRES_DB: hass
+      postgres_db: hass
     env_file: 'hass-postgres.env'
   # mqtt-broker:
   #   image: eclipse-mosquitto
