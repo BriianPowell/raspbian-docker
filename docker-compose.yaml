@@ -6,24 +6,20 @@ services:
       - hass-db
       # - host-hostnames
       # - mqtt-broker
-    links:
-      - hass-db
     restart: always
-    # extra_hosts:
-    #   - 'host.docker.internal:10.0.0.15'
-    #   - 'hass-db:10.0.0.15'
+    extra_hosts:
+      - 'host.docker.internal:10.0.0.15'
+      - 'hass-db:10.0.0.15'
     volumes: 
       - /home/admin/GitHub/hass-config:/config
       - /etc/localtime:/etc/localtime:ro
     ports:
-      # - '56700:56700'
-      - '8123:8123'
-      
+      - '8123:8123'     
   hass-db:
     image: postgres:13
     restart: always
     extra_hosts:
-    - 'host.docker.internal:10.0.0.15'
+      - 'host.docker.internal:10.0.0.15'
     ports:
       - '5432:5432'
     volumes:
