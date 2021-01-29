@@ -4,8 +4,8 @@ services:
     image: homeassistant/home-assistant:latest
     depends_on:
       - hass-db
-      - host-hostnames
-      - mqtt-broker
+      # - host-hostnames
+      # - mqtt-broker
     links:
       - hass-db
     restart: always
