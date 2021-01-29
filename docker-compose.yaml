@@ -14,7 +14,8 @@ services:
       - ~/GitHub/hass-config:/config
       - /etc/localtime:/etc/localtime:ro
     ports:
-      - '8123:8123'     
+      - '8123:8123'
+    env_file: 'hass-postgres.env'
   hass-db:
     image: postgres:13
     restart: always
