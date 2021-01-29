@@ -11,7 +11,7 @@ services:
       - 'host.docker.internal:10.0.0.15'
       # - 'hass-db:10.0.0.15'
     volumes: 
-      - /home/admin/GitHub/hass-config:/config
+      - ~/GitHub/hass-config:/config
       - /etc/localtime:/etc/localtime:ro
     ports:
       - '8123:8123'     
