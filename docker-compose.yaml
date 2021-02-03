@@ -18,6 +18,8 @@ services:
       - '8123:8123'
   hass-db:
     image: postgres:13
+    networks:
+      - hass-net
     extra_hosts:
       - 'host.docker.internal:10.0.0.15'
     ports:
@@ -29,6 +31,8 @@ services:
     env_file: 'hass-postgres.env'
   mqtt-broker:
     image: eclipse-mosquitto
+    networks:
+      - hass-net
     ports:
       - '1883:1883'
       - '9001:9001'
@@ -41,3 +45,6 @@ services:
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock
       - /etc/hosts:/tmp/hosts
+
+networks:
+  hass-net:
