@@ -41,7 +41,7 @@ services:
       - /usr/local/lib/docker-mosquitto:/mosquitto/data
       - /usr/local/share/docker-mosquitto:/mosquitto/log
   host-hostnames:
-    image: dvdarias/docker-hoster
+    image: dvdarias/docker-hoster:latest
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock
       - /etc/hosts:/tmp/hosts
