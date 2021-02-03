@@ -48,5 +48,3 @@ services:
 
 networks:
   hass-net:
-
-  ssh test
