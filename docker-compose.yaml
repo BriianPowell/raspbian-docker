@@ -1,7 +1,7 @@
 version: '3'
 services:
   home-assistant:
-    image: homeassistant/home-assistant:stable
+    image: homeassistant/home-assistant:2021.2.0b3
     depends_on:
       - hass-db
       # - host-hostnames
@@ -15,19 +15,18 @@ services:
       - /etc/localtime:/etc/localtime:ro
     ports:
       - '8123:8123'
-    env_file: 'hass-postgres.env'
-  hass-db:
-    image: postgres:13
-    restart: always
-    extra_hosts:
-      - 'host.docker.internal:10.0.0.15'
-    ports:
-      - '5432:5432'
-    volumes:
-      - /usr/local/lib/hass-postgres-data:/var/lib/postgresql/data
-    environment:
-      postgres_db: hass
-    env_file: 'hass-postgres.env'
+  # hass-db:
+  #   image: postgres:13
+  #   restart: always
+  #   extra_hosts:
+  #     - 'host.docker.internal:10.0.0.15'
+  #   ports:
+  #     - '5432:5432'
+  #   volumes:
+  #     - /usr/local/lib/hass-postgres-data:/var/lib/postgresql/data
+  #   environment:
+  #     postgres_db: hass
+  #   env_file: 'hass-postgres.env'
   # mqtt-broker:
   #   image: eclipse-mosquitto
   #   ports:
