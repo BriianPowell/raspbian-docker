@@ -43,7 +43,7 @@ services:
   host-hostnames:
     # image: dvdarias/docker-hoster:latest
     build:
-      context: './'
+      context: './docker-hoster'
       dockerfile: './docker-hoster/Dockerfile'
     restart: on-failure
     volumes:
