@@ -2,53 +2,53 @@ version: '3'
 services:
   home-assistant:
     image: homeassistant/raspberrypi4-homeassistant:stable
-    depends_on:
-      - hass-db
-      - host-hostnames
-      - mqtt-broker
+    # depends_on:
+    #   - hass-db
+    #   - host-hostnames
+    #   - mqtt-broker
     restart: always
     ports: 
       - '8123:8123'
     network_mode: host
-    extra_hosts:
-      - 'host.docker.internal:10.0.0.15'
-      - 'hass-db:10.0.0.15'
+    # extra_hosts:
+    #   - 'host.docker.internal:10.0.0.15'
+    #   - 'hass-db:10.0.0.15'
     volumes: 
       - ~/GitHub/hass-config:/config
       - /etc/localtime:/etc/localtime:ro
-  hass-db:
-    image: postgres:13
-    networks:
-      - hass-net
-    extra_hosts:
-      - 'host.docker.internal:10.0.0.15'
-    ports:
-      - '5432:5432'
-    volumes:
-      - /usr/local/lib/hass-postgres-data:/var/lib/postgresql/data
-    environment:
-      POSTGRES_DB: hass
-    env_file: 'hass-postgres.env'
-  mqtt-broker:
-    image: eclipse-mosquitto
-    networks:
-      - hass-net
-    ports:
-      - '1883:1883'
-      - '9001:9001'
-    volumes:
-      - /usr/local/etc/docker-mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
-      - /usr/local/lib/docker-mosquitto:/mosquitto/data
-      - /usr/local/share/docker-mosquitto:/mosquitto/log
-  host-hostnames:
-    # image: dvdarias/docker-hoster:latest
-    build:
-      context: './'
-      dockerfile: './hoster.dockerfile'
-    restart: on-failure
-    volumes:
-      - /var/run/docker.sock:/tmp/docker.sock
-      - /etc/hosts:/tmp/hosts
+  # hass-db:
+  #   image: postgres:13
+  #   networks:
+  #     - hass-net
+  #   extra_hosts:
+  #     - 'host.docker.internal:10.0.0.15'
+  #   ports:
+  #     - '5432:5432'
+  #   volumes:
+  #     - /usr/local/lib/hass-postgres-data:/var/lib/postgresql/data
+  #   environment:
+  #     POSTGRES_DB: hass
+  #   env_file: 'hass-postgres.env'
+  # mqtt-broker:
+  #   image: eclipse-mosquitto
+  #   networks:
+  #     - hass-net
+  #   ports:
+  #     - '1883:1883'
+  #     - '9001:9001'
+  #   volumes:
+  #     - /usr/local/etc/docker-mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
+  #     - /usr/local/lib/docker-mosquitto:/mosquitto/data
+  #     - /usr/local/share/docker-mosquitto:/mosquitto/log
+  # host-hostnames:
+  #   # image: dvdarias/docker-hoster:latest
+  #   build:
+  #     context: './'
+  #     dockerfile: './hoster.dockerfile'
+  #   restart: on-failure
+  #   volumes:
+  #     - /var/run/docker.sock:/tmp/docker.sock
+  #     - /etc/hosts:/tmp/hosts
 
 networks:
   hass-net:
