@@ -1,5 +1,8 @@
-FROM frolvlad/alpine-python3
+FROM faucet/python3
 
+# frolvlad/alpine-python3
+
+RUN pip3 install docker
 RUN mkdir /hoster
 WORKDIR /hoster
 ADD hoster.py /hoster/
