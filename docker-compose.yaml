@@ -14,8 +14,8 @@ services:
     volumes: 
       - ~/GitHub/hass-config:/config
       - /etc/localtime:/etc/localtime:ro
-    ports:
-      - '8123:8123'
+    # ports:
+    #   - '8123:8123'
   hass-db:
     image: postgres:13
     networks:
