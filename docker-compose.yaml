@@ -8,9 +8,9 @@ services:
       - mqtt-broker
     restart: always
     network_mode: host
-    extra_hosts:
-      - 'host.docker.internal:10.0.0.15'
-      - 'hass-db:10.0.0.15'
+    # extra_hosts:
+    #   - 'host.docker.internal:10.0.0.15'
+    #   - 'hass-db:10.0.0.15'
     volumes: 
       - ~/GitHub/hass-config:/config
       - /etc/localtime:/etc/localtime:ro
