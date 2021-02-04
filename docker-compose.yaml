@@ -7,15 +7,15 @@ services:
       - host-hostnames
       - mqtt-broker
     restart: always
+    ports: 
+      - '8123:8123'
     network_mode: host
-    # extra_hosts:
-    #   - 'host.docker.internal:10.0.0.15'
-    #   - 'hass-db:10.0.0.15'
+    extra_hosts:
+      - 'host.docker.internal:10.0.0.15'
+      - 'hass-db:10.0.0.15'
     volumes: 
       - ~/GitHub/hass-config:/config
       - /etc/localtime:/etc/localtime:ro
-    # ports:
-    #   - '8123:8123'
   hass-db:
     image: postgres:13
     networks:
